@@ -46,13 +46,27 @@ export default function CoursesPage() {
                       Students: {course.studentIds.length}
                     </p>
                   </div>
-                  <div className="bg-gray-50 px-4 py-4 sm:px-6">
+                  <div className="bg-gray-50 px-4 py-4 sm:px-6 flex justify-between items-center">
                     <Link
                       href={`/courses/${course.id}`}
                       className="text-sm font-medium text-blue-600 hover:text-blue-800"
                     >
                       View Details →
                     </Link>
+                    <div className="flex space-x-3">
+                      <Link
+                        href={`/courses/${course.id}/grades`}
+                        className="text-sm text-green-600 hover:text-green-800"
+                      >
+                        Grades
+                      </Link>
+                      <Link
+                        href={`/courses/${course.id}/grading-schema`}
+                        className="text-sm text-indigo-600 hover:text-indigo-800"
+                      >
+                        Schema
+                      </Link>
+                    </div>
                   </div>
                 </div>
               );

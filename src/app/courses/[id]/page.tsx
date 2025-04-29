@@ -30,13 +30,29 @@ export default function CoursePage({ params }: { params: { id: string } }) {
       <main className="max-w-7xl mx-auto px-4 py-6 sm:px-6 lg:px-8">
         <Suspense fallback={<p>Loading course details...</p>}>
           <div className="bg-white shadow overflow-hidden sm:rounded-lg">
-            <div className="px-4 py-5 sm:px-6">
-              <h3 className="text-lg leading-6 font-medium text-gray-900">
-                Course Details
-              </h3>
-              <p className="mt-1 max-w-2xl text-sm text-gray-500">
-                {course.description}
-              </p>
+            <div className="px-4 py-5 sm:px-6 flex justify-between items-center">
+              <div>
+                <h3 className="text-lg leading-6 font-medium text-gray-900">
+                  Course Details
+                </h3>
+                <p className="mt-1 max-w-2xl text-sm text-gray-500">
+                  {course.description}
+                </p>
+              </div>
+              <div className="flex space-x-4">
+                <Link
+                  href={`/courses/${courseId}/grading-schema`}
+                  className="bg-indigo-100 text-indigo-700 px-3 py-1 rounded-md text-sm hover:bg-indigo-200"
+                >
+                  Grading Schema
+                </Link>
+                <Link
+                  href={`/courses/${courseId}/grades`}
+                  className="bg-green-100 text-green-700 px-3 py-1 rounded-md text-sm hover:bg-green-200"
+                >
+                  View Grades
+                </Link>
+              </div>
             </div>
             <div className="border-t border-gray-200">
               <dl>

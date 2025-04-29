@@ -161,12 +161,20 @@ export default function CourseGradingSchemaPage() {
           <h1 className="text-2xl font-bold text-gray-900">
             Grading Schema for {course.title}
           </h1>
-          <Link
-            href={`/courses/${courseId}`}
-            className="text-blue-600 hover:text-blue-800"
-          >
-            Back to Course
-          </Link>
+          <div className="flex items-center space-x-4">
+            <Link
+              href={`/courses/${courseId}/grades`}
+              className="text-green-600 hover:text-green-800"
+            >
+              View Grades
+            </Link>
+            <Link
+              href={`/courses/${courseId}`}
+              className="text-blue-600 hover:text-blue-800"
+            >
+              Back to Course
+            </Link>
+          </div>
         </div>
       </header>
       <main className="max-w-7xl mx-auto px-4 py-6 sm:px-6 lg:px-8">
