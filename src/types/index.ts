@@ -1,5 +1,7 @@
 // src/types/index.ts
 
+import { attendanceRecords, attendanceSessions, courses } from "@/data";
+
 export type User = {
   id: string;
   name: string;
@@ -167,4 +169,73 @@ export const calculateWeightedGrade = (
   }
 
   return 0;
+};
+
+export type AttendanceSession = {
+  id: string;
+  courseId: string;
+  title: string;
+  date: string;
+  startTime: string;
+  endTime: string;
+  description?: string;
+  createdBy: string;
+};
+
+export type AttendanceRecord = {
+  id: string;
+  sessionId: string;
+  studentId: string;
+  status: "present" | "absent" | "late" | "excused";
+  timestamp?: string;
+  notes?: string;
+};
+export const getStudentAttendanceRate = (
+  studentId: string,
+  courseId: string
+): number => {
+  const sessions = attendanceSessions.filter(
+    (session) => session.courseId === courseId
+  );
+
+  if (sessions.length === 0) return 0;
+
+  const sessionIds = sessions.map((session) => session.id);
+  const records = attendanceRecords.filter(
+    (record) =>
+      sessionIds.includes(record.sessionId) && record.studentId === studentId
+  );
+
+  const presentCount = records.filter(
+    (record) => record.status === "present" || record.status === "late"
+  ).length;
+
+  return (presentCount / sessions.length) * 100;
+};
+
+export const getCourseAttendanceStats = (courseId: string) => {
+  const sessions = attendanceSessions.filter(
+    (session) => session.courseId === courseId
+  );
+  const sessionIds = sessions.map((session) => session.id);
+
+  const records = attendanceRecords.filter((record) =>
+    sessionIds.includes(record.sessionId)
+  );
+
+  const totalExpectedAttendances =
+    sessions.length * courses.find((c) => c.id === courseId)!.studentIds.length;
+  const presentCount = records.filter((r) => r.status === "present").length;
+  const lateCount = records.filter((r) => r.status === "late").length;
+  const absentCount = records.filter((r) => r.status === "absent").length;
+  const excusedCount = records.filter((r) => r.status === "excused").length;
+
+  return {
+    attendanceRate:
+      ((presentCount + lateCount) / totalExpectedAttendances) * 100,
+    presentRate: (presentCount / totalExpectedAttendances) * 100,
+    lateRate: (lateCount / totalExpectedAttendances) * 100,
+    absentRate: (absentCount / totalExpectedAttendances) * 100,
+    excusedRate: (excusedCount / totalExpectedAttendances) * 100,
+  };
 };

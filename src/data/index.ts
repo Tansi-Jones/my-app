@@ -9,6 +9,8 @@ import {
   TranscriptRequest,
   CourseGradingSchema,
   StudentGradeEntry,
+  AttendanceSession,
+  AttendanceRecord,
 } from "../types";
 
 export const users: User[] = [
@@ -275,5 +277,91 @@ export const studentGradeEntries: StudentGradeEntry[] = [
     feedback: "Good effort, needs to improve on time complexity analysis",
     gradedAt: "2025-03-15T15:00:00Z",
     gradedBy: "l1",
+  },
+];
+
+export const attendanceSessions: AttendanceSession[] = [
+  {
+    id: "as1",
+    courseId: "c1",
+    title: "Week 1 Lecture",
+    date: "2025-01-15",
+    startTime: "09:00",
+    endTime: "10:30",
+    description: "Introduction to Computer Science Concepts",
+    createdBy: "l1",
+  },
+  {
+    id: "as2",
+    courseId: "c1",
+    title: "Week 2 Lecture",
+    date: "2025-01-22",
+    startTime: "09:00",
+    endTime: "10:30",
+    description: "Algorithms and Data Structures",
+    createdBy: "l1",
+  },
+  {
+    id: "as3",
+    courseId: "c2",
+    title: "Web Dev Workshop",
+    date: "2025-01-16",
+    startTime: "13:00",
+    endTime: "15:00",
+    description: "Frontend Development Introduction",
+    createdBy: "l2",
+  },
+];
+
+export const attendanceRecords: AttendanceRecord[] = [
+  {
+    id: "ar1",
+    sessionId: "as1",
+    studentId: "s1",
+    status: "present",
+    timestamp: "2025-01-15T09:05:00Z",
+  },
+  {
+    id: "ar2",
+    sessionId: "as1",
+    studentId: "s2",
+    status: "present",
+    timestamp: "2025-01-15T08:55:00Z",
+  },
+  {
+    id: "ar3",
+    sessionId: "as1",
+    studentId: "s3",
+    status: "late",
+    timestamp: "2025-01-15T09:20:00Z",
+    notes: "Traffic delay",
+  },
+  {
+    id: "ar4",
+    sessionId: "as2",
+    studentId: "s1",
+    status: "absent",
+    notes: "No notification provided",
+  },
+  {
+    id: "ar5",
+    sessionId: "as2",
+    studentId: "s2",
+    status: "present",
+    timestamp: "2025-01-22T08:50:00Z",
+  },
+  {
+    id: "ar6",
+    sessionId: "as3",
+    studentId: "s1",
+    status: "present",
+    timestamp: "2025-01-16T12:55:00Z",
+  },
+  {
+    id: "ar7",
+    sessionId: "as3",
+    studentId: "s2",
+    status: "excused",
+    notes: "Medical appointment",
   },
 ];
