@@ -7,6 +7,8 @@ import {
   Submission,
   Grade,
   TranscriptRequest,
+  CourseGradingSchema,
+  StudentGradeEntry,
 } from "../types";
 
 export const users: User[] = [
@@ -154,3 +156,124 @@ export const courseSemesters: Record<string, string> = {
   c1: "Spring 2025",
   c2: "Spring 2025",
 };
+
+// Add mock data for grade schemas
+export const gradingSchemas: CourseGradingSchema[] = [
+  {
+    id: "gs1",
+    courseId: "c1",
+    components: [
+      {
+        id: "comp1",
+        name: "Midterm Exam",
+        type: "midterm",
+        weight: 30,
+        maxPoints: 100,
+        description: "Covers first half of the course",
+      },
+      {
+        id: "comp2",
+        name: "Final Exam",
+        type: "final",
+        weight: 40,
+        maxPoints: 100,
+        description: "Comprehensive exam covering all material",
+      },
+      {
+        id: "comp3",
+        name: "Programming Assignments",
+        type: "assignment",
+        weight: 20,
+        maxPoints: 100,
+        description: "Average of all programming assignments",
+      },
+      {
+        id: "comp4",
+        name: "Participation",
+        type: "participation",
+        weight: 10,
+        maxPoints: 100,
+        description: "In-class participation and discussion",
+      },
+    ],
+    createdAt: "2025-01-15T10:00:00Z",
+    updatedAt: "2025-01-15T10:00:00Z",
+  },
+  {
+    id: "gs2",
+    courseId: "c2",
+    components: [
+      {
+        id: "comp5",
+        name: "Midterm Project",
+        type: "midterm",
+        weight: 25,
+        maxPoints: 100,
+        description: "Individual project for the first half",
+      },
+      {
+        id: "comp6",
+        name: "Final Project",
+        type: "final",
+        weight: 35,
+        maxPoints: 100,
+        description: "Comprehensive team project",
+      },
+      {
+        id: "comp7",
+        name: "Weekly Labs",
+        type: "lab",
+        weight: 25,
+        maxPoints: 100,
+        description: "Average of all weekly lab assignments",
+      },
+      {
+        id: "comp8",
+        name: "Quizzes",
+        type: "quiz",
+        weight: 15,
+        maxPoints: 100,
+        description: "Average of pop quizzes throughout semester",
+      },
+    ],
+    createdAt: "2025-01-16T10:00:00Z",
+    updatedAt: "2025-01-16T10:00:00Z",
+  },
+];
+
+export const studentGradeEntries: StudentGradeEntry[] = [
+  {
+    id: "sge1",
+    studentId: "s1",
+    componentId: "comp1",
+    courseId: "c1",
+    points: 85,
+    percentage: 85,
+    feedback:
+      "Good understanding of concepts, could improve on algorithm analysis",
+    gradedAt: "2025-03-15T14:30:00Z",
+    gradedBy: "l1",
+  },
+  {
+    id: "sge2",
+    studentId: "s1",
+    componentId: "comp3",
+    courseId: "c1",
+    points: 92,
+    percentage: 92,
+    feedback: "Excellent work on programming assignments",
+    gradedAt: "2025-03-20T11:15:00Z",
+    gradedBy: "l1",
+  },
+  {
+    id: "sge3",
+    studentId: "s2",
+    componentId: "comp1",
+    courseId: "c1",
+    points: 78,
+    percentage: 78,
+    feedback: "Good effort, needs to improve on time complexity analysis",
+    gradedAt: "2025-03-15T15:00:00Z",
+    gradedBy: "l1",
+  },
+];

@@ -99,3 +99,72 @@ export type TranscriptData = {
   requestDate: string;
   generatedDate: string;
 };
+
+// src/types/grading.ts
+
+// Types for the grading schema
+export type GradeComponentType =
+  | "midterm"
+  | "final"
+  | "assignment"
+  | "quiz"
+  | "project"
+  | "lab"
+  | "participation"
+  | "presentation"
+  | "other";
+
+export type GradeComponent = {
+  id: string;
+  name: string;
+  type: GradeComponentType;
+  weight: number; // percentage weight in the final grade
+  maxPoints: number;
+  description?: string;
+};
+
+export type CourseGradingSchema = {
+  id: string;
+  courseId: string;
+  components: GradeComponent[];
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type StudentGradeEntry = {
+  id: string;
+  studentId: string;
+  componentId: string;
+  courseId: string;
+  points: number;
+  percentage: number;
+  feedback?: string;
+  gradedAt: string;
+  gradedBy: string;
+};
+
+// Function to calculate the weighted grade
+export const calculateWeightedGrade = (
+  componentGrades: StudentGradeEntry[],
+  gradingSchema: CourseGradingSchema
+): number => {
+  let totalWeightedPercentage = 0;
+  let appliedWeightSum = 0;
+
+  for (const grade of componentGrades) {
+    const component = gradingSchema.components.find(
+      (c) => c.id === grade.componentId
+    );
+    if (component) {
+      totalWeightedPercentage += grade.percentage * component.weight;
+      appliedWeightSum += component.weight;
+    }
+  }
+
+  // If not all components are graded yet, calculate based on current weights
+  if (appliedWeightSum > 0) {
+    return (totalWeightedPercentage / appliedWeightSum) * 100;
+  }
+
+  return 0;
+};
